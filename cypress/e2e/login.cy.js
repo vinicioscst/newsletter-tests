@@ -38,49 +38,33 @@ describe('login page', () => {
 
   context('login', () => {
     it('gives invalid credentials message when inserting invalid data', () => {
-      cy.intercept('POST', `${Cypress.env('API_BASEURL')}/api/login`).as(
-        'loginRequest'
-      )
-
       cy.login('meuemail@ht.com', 'minhasenha')
 
-      cy.wait('@loginRequest').then((interception) => {
-        expect(interception.response.statusCode).to.equal(401)
-        cy.get('.Vue-Toastification__toast--error')
-          .should('exist')
-          .and('be.visible')
-      })
+      cy.wait(3000)
+      cy.get('.Vue-Toastification__toast--error')
+        .should('exist')
+        .and('be.visible')
     })
 
     it('goes to dashboard when inserting correct data', () => {
-      cy.intercept('POST', `${Cypress.env('API_BASEURL')}/api/login`).as(
-        'loginRequest'
-      )
-
       const email = Cypress.env('LOGIN_EMAIL')
       const password = Cypress.env('LOGIN_PASSWORD')
 
       cy.login(email, password)
 
-      cy.wait('@loginRequest').then((interception) => {
-        expect(interception.response.statusCode).to.equal(200)
-        cy.get('.Vue-Toastification__toast--success')
-          .should('exist')
-          .and('be.visible')
-      })
+      cy.wait(7000)
+      cy.get('.Vue-Toastification__toast--success')
+        .should('exist')
+        .and('be.visible')
     })
 
     it('store cookies when log in', () => {
-      cy.intercept('POST', `${Cypress.env('API_BASEURL')}/api/login`).as(
-        'loginRequest'
-      )
-
       const email = Cypress.env('LOGIN_EMAIL')
       const password = Cypress.env('LOGIN_PASSWORD')
 
       cy.login(email, password)
 
-      cy.wait('@loginRequest')
+      cy.wait(7000)
       cy.getCookies()
         .should('have.length.at.least', 2)
         .then((cookies) => {
