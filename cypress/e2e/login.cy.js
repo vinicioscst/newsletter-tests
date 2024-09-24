@@ -52,7 +52,7 @@ describe('login page', () => {
 
       cy.login(email, password)
 
-      cy.wait(7000)
+      cy.wait(3000)
       cy.get('.Vue-Toastification__toast--success')
         .should('exist')
         .and('be.visible')
@@ -64,7 +64,7 @@ describe('login page', () => {
 
       cy.login(email, password)
 
-      cy.wait(7000)
+      cy.wait(3000)
       cy.getCookies()
         .should('have.length.at.least', 2)
         .then((cookies) => {
