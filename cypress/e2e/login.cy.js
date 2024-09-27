@@ -2,18 +2,18 @@
 
 describe('login page', () => {
   beforeEach(() => {
-    cy.visit(`${Cypress.env('BASE_URL')}/login`)
+    cy.visit('/login')
   })
 
   context('validation', () => {
-    it('verifies if form has empty field(s) before submitting 1/3', () => {
+    it('should verify if form has empty field(s) before submitting 1/3', () => {
       cy.get('div .error--text').should('not.exist')
       cy.get('[data-test=login-form-button]').click()
       cy.get('div .error--text').should('exist')
       cy.get('[data-test=login-form-button]').should('be.disabled')
     })
 
-    it('verifies if form has empty field(s) before submitting 2/3', () => {
+    it('should verify if form has empty field(s) before submitting 2/3', () => {
       cy.get('[data-test=login-form-email]').type('meuemail@ht.com')
       cy.get('div .error--text').should('not.exist')
       cy.get('[data-test=login-form-button]').click()
@@ -21,7 +21,7 @@ describe('login page', () => {
       cy.get('[data-test=login-form-button]').should('be.disabled')
     })
 
-    it('verifies if form has empty field(s) before submitting 3/3', () => {
+    it('should verify if form has empty field(s) before submitting 3/3', () => {
       cy.get('[data-test=login-form-password]').type('minhasenha')
       cy.get('div .error--text').should('not.exist')
       cy.get('[data-test=login-form-button]').click()
@@ -29,7 +29,7 @@ describe('login page', () => {
       cy.get('[data-test=login-form-button]').should('be.disabled')
     })
 
-    it('verifies if form has invalid value', () => {
+    it('should verify if form has invalid value', () => {
       cy.get('[data-test=login-form-email]').type('meuemail@com')
       cy.get('div .error--text').should('exist')
       cy.get('[data-test=login-form-button]').should('be.disabled')
@@ -37,7 +37,7 @@ describe('login page', () => {
   })
 
   context('login', () => {
-    it('gives invalid credentials message when inserting invalid data', () => {
+    it('shoudl show invalid credentials message when inserting invalid data', () => {
       cy.login('meuemail@ht.com', 'minhasenha')
 
       cy.wait(3000)
@@ -46,7 +46,7 @@ describe('login page', () => {
         .and('be.visible')
     })
 
-    it('goes to dashboard when inserting correct data', () => {
+    it('should go to dashboard when inserting correct data', () => {
       const email = Cypress.env('LOGIN_EMAIL')
       const password = Cypress.env('LOGIN_PASSWORD')
 
@@ -58,7 +58,7 @@ describe('login page', () => {
         .and('be.visible')
     })
 
-    it('store cookies when log in', () => {
+    it('should store cookies when log in', () => {
       const email = Cypress.env('LOGIN_EMAIL')
       const password = Cypress.env('LOGIN_PASSWORD')
 
