@@ -29,3 +29,9 @@ Cypress.Commands.add('login', (email, password) => {
   cy.get('[data-test=login-form-password]').type(password)
   cy.get('[data-test=login-form-button]').click()
 })
+
+Cypress.Commands.add('editUser', (name, email) => {
+  cy.get('[data-test=edit-name-input]').clear().type(name)
+  cy.get('[data-test=edit-email-input]').clear().type(email)
+  cy.get('[data-test=edit-user-button]').click()
+})
