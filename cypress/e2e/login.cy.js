@@ -2,7 +2,7 @@
 
 describe('login page', () => {
   beforeEach(() => {
-    cy.visit('/login')
+    cy.visit(`${Cypress.env('BASE_URL')}/login`)
   })
 
   context('validation', () => {

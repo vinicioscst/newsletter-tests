@@ -2,7 +2,7 @@
 
 describe('dashboard page', () => {
   beforeEach(() => {
-    cy.visit('/login')
+    cy.visit(`${Cypress.env('BASE_URL')}/login`)
     const email = Cypress.env('LOGIN_EMAIL')
     const password = Cypress.env('LOGIN_PASSWORD')
 
