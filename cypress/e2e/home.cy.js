@@ -88,11 +88,11 @@ describe('home page', () => {
         if ($el.find('[data-test=articles-card]').length > 0) {
           // A-Z
           cy.get('[data-test=orderBy]').click()
-          cy.get('#list-item-216-2').click()
+          cy.get('.v-list-item').contains('A-Z').click({ force: true })
           cy.wait(2000)
           cy.get('[data-test=articles-card]').then((cards) => {
             const titles = cards
-              .map((i, card) => Cypress.$(card).find('h3').text())
+              .map((_, card) => Cypress.$(card).find('.title').text())
               .get()
 
             const sortedTitles = [...titles].sort((a, b) => a.localeCompare(b))
@@ -101,11 +101,11 @@ describe('home page', () => {
 
           // Z-A
           cy.get('[data-test=orderBy]').click()
-          cy.get('#list-item-216-3').click()
+          cy.get('.v-list-item').contains('Z-A').click({ force: true })
           cy.wait(2000)
           cy.get('[data-test=articles-card]').then((cards) => {
             const titles = cards
-              .map((i, card) => Cypress.$(card).find('.title').text())
+              .map((_, card) => Cypress.$(card).find('.title').text())
               .get()
 
             const sortedTitles = [...titles].sort((a, b) => b.localeCompare(a))
@@ -118,8 +118,8 @@ describe('home page', () => {
       cy.get('body').then(($el) => {
         if ($el.find('[data-test=articles-card]').length > 0) {
           // Newest
-          cy.get('[data-test=orderBy]').click()
-          cy.get('#list-item-216-0').click()
+          cy.get('[data-test=orderBy]').click({ force: true })
+          cy.get('.v-list-item').contains('Mais recente').click({ force: true })
           cy.wait(2000)
           cy.get('[data-test=articles-card]').then((cards) => {
             const dates = cards
@@ -136,8 +136,8 @@ describe('home page', () => {
           })
 
           // Oldest
-          cy.get('[data-test=orderBy]').click()
-          cy.get('#list-item-216-1').click()
+          cy.get('[data-test=orderBy]').click({ force: true })
+          cy.get('.v-list-item').contains('Mais antigo').click({ force: true })
           cy.wait(2000)
           cy.get('[data-test=articles-card]').then((cards) => {
             const dates = cards
@@ -158,22 +158,22 @@ describe('home page', () => {
     it('filter - should show correct amount of articles', () => {
       cy.get('body').then(($el) => {
         if ($el.find('[data-test=articles-card]').length >= 4) {
-          cy.get('[data-test=perPage]').click()
-          cy.get('#list-item-216-0').click()
+          cy.get('[data-test=perPage]').click({ force: true })
+          cy.get('.v-list-item').contains('4').click({ force: true })
           cy.wait(2000)
           cy.get('[data-test=articles-card]').should('have.length', 4)
         }
 
         if ($el.find('[data-test=articles-card]').length >= 8) {
-          cy.get('[data-test=perPage]').click()
-          cy.get('#list-item-216-1').click()
+          cy.get('[data-test=perPage]').click({ force: true })
+          cy.get('.v-list-item').contains('8').click({ force: true })
           cy.wait(2000)
           cy.get('[data-test=articles-card]').should('have.length', 8)
         }
 
         if ($el.find('[data-test=articles-card]').length == 12) {
           cy.get('[data-test=perPage]').click()
-          cy.get('#list-item-216-2').click()
+          cy.get('.v-list-item').contains('12').click({ force: true })
           cy.wait(2000)
           cy.get('[data-test=articles-card]').should('have.length', 12)
         }
